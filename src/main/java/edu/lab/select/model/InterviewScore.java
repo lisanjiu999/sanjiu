@@ -1,0 +1,22 @@
+package edu.lab.select.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "interview_score",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"mentorId", "studentId", "roundNo"}))
+public class InterviewScore {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+    public Long mentorId;
+    public Long studentId;
+    public int roundNo = 1;
+    public int attitude;
+    public int logic;
+    public int coding;
+    public int timeInput;
+    public int total;
+    @Column(length = 500)
+    public String comment;
+}

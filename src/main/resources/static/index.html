@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实训室进组选拔 · 双向选择</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=20261111d">
+<link rel="stylesheet" href="assets/fonts2/fonts.css?v=20261111d">
+<link rel="stylesheet" href="assets/app.css?v=20261111d">
+</head>
+<body>
+
+<div class="app">
+  <aside class="side" id="side">
+    <div class="side-brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3h6M10 3v5.5L4.8 17a2.5 2.5 0 0 0 2.1 3.8h10.2A2.5 2.5 0 0 0 19.2 17L14 8.5V3"/>
+          <path d="M7 14h10"/>
+        </svg>
+      </span>
+      <div class="brand-text">
+        <b>实训室进组选拔</b>
+        <em>AI + PBL · 双向选择</em>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="主导航"></nav>
+
+    <div class="side-foot">
+      <div class="me">
+        <span class="avatar" id="meAvatar">·</span>
+        <div class="me-text">
+          <b id="whoName">未登录</b>
+          <span id="whoSub"></span>
+        </div>
+      </div>
+      <div class="me-actions">
+        <button class="btn btn-sm" id="pwdBtn" type="button">修改密码</button>
+        <button class="btn btn-sm" id="switchBtn" type="button">退出</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="bar">
+      <div class="bar-left">
+        <h1 class="bar-title" id="barTitle">总览</h1>
+        <span class="stage-pill" id="stagePill"></span>
+      </div>
+      <div class="bar-right">
+        <span class="countdown" id="stageLeft"></span>
+        <span class="clock" id="demoClock" title="演示时钟"></span>
+      </div>
+    </header>
+
+    <div class="stepper" id="rail" aria-label="选拔流程"></div>
+
+    <main id="view" class="content" tabindex="-1"></main>
+
+    <footer class="foot">
+      <span>学生实训室进组选拔系统 · 程序设计课程作业</span>
+      <span>八阶段 · 平行意向 · 递补与调剂</span>
+    </footer>
+  </div>
+</div>
+
+<div class="login" id="login" hidden>
+  <div class="login-panel">
+    <div class="login-side">
+      <div class="login-brand">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3h6M10 3v5.5L4.8 17a2.5 2.5 0 0 0 2.1 3.8h10.2A2.5 2.5 0 0 0 19.2 17L14 8.5V3"/>
+            <path d="M7 14h10"/>
+          </svg>
+        </span>
+        <b>实训室进组选拔</b>
+      </div>
+      <div class="login-mid">
+        <p class="login-tagline">八步走完，<br><em>去向落定</em>。</p>
+        <p class="login-sub">从宣讲到公示，八个阶段各有明确的时间窗，到点自动开闭。</p>
+        <ul class="login-points">
+          <li>至多 3 个平行意向，不分先后</li>
+          <li>导师端看不到你的志愿顺序</li>
+          <li>名额释放后自动递补</li>
+        </ul>
+        <div class="login-stages" aria-hidden="true">
+          <span>宣讲</span><span>开放日</span><span>填报</span><span>面试</span>
+          <span>确认</span><span>补录</span><span>调剂</span><span>公示</span>
+        </div>
+      </div>
+      <div class="login-meta">
+        <span>双向选择 · 全程留痕</span>
+        <span>教学办公室</span>
+      </div>
+    </div>
+
+    <div class="login-main">
+      <h2>登录</h2>
+      <p class="login-hint">学生用学号，导师用工号，密码由教学办公室发放。</p>
+
+      <form class="login-form" id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">账号</label>
+          <input type="text" id="username" name="username" autocomplete="username"
+                 placeholder="学号 / 工号" spellcheck="false" autocapitalize="off">
+        </div>
+        <div class="field">
+          <label for="password">密码</label>
+          <input type="password" id="password" name="password" autocomplete="current-password"
+                 placeholder="请输入密码">
+        </div>
+        <p class="form-error" id="loginError" hidden></p>
+        <button class="btn btn-primary login-submit" id="loginBtn" type="submit">登录</button>
+      </form>
+
+      <div class="login-foot">
+        <button class="btn-link" id="demoToggle" type="button">演示账号</button>
+        <span>连续 5 次输错将锁定 5 分钟</span>
+      </div>
+
+      <div class="login-demo" id="loginDemo" hidden>
+        <div><b>学生</b><span>20221001</span><code>Lab@1001</code></div>
+        <div><b>导师</b><span>T2001</span><code>Lab@2001</code></div>
+        <div><b>管理员</b><span>admin</span><code>Admin@2026</code></div>
+        <p>其余账号：学生为学号、导师为工号（T2001—T2016），初始密码为 <code>Lab@</code> 加编号后四位。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="pwdModal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="pwdTitle">
+    <div class="modal-head">
+      <h2 id="pwdTitle">修改密码</h2>
+      <button class="modal-x" id="pwdClose" type="button" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="pwdOld">当前密码</label>
+        <input type="password" id="pwdOld" autocomplete="current-password">
+      </div>
+      <div class="field">
+        <label for="pwdNew">新密码</label>
+        <input type="password" id="pwdNew" autocomplete="new-password" placeholder="至少 8 位，需含字母和数字">
+      </div>
+      <div class="field">
+        <label for="pwdNew2">确认新密码</label>
+        <input type="password" id="pwdNew2" autocomplete="new-password">
+      </div>
+      <p class="form-error" id="pwdError" hidden></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="pwdCancel" type="button">取消</button>
+      <button class="btn btn-primary" id="pwdSave" type="button">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="assets/core.js?v=20261111d"></script>
+<script src="assets/views.student.js?v=20261111d"></script>
+<script src="assets/views.mentor.js?v=20261111d"></script>
+<script src="assets/views.admin.js?v=20261111d"></script>
+<script src="assets/main.js?v=20261111d"></script>
+</body>
+</html>
